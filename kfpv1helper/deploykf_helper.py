@@ -46,7 +46,7 @@ class kfphelpers():
         # upload pipeline to cluster
         if existing_pipeline_id is None:
             api_pl = self.client.upload_pipeline(pipeline_package_path=self.pl_yaml_path, pipeline_name=self.pl_name)
-            print(f'Uploaded pipeline received id {api_pl.pipeline_id}')
+            print(f'Uploaded pipeline received id {api_pl.id}')
 
         # Automatically create and upload new version of pipeline.
         else:
@@ -56,7 +56,7 @@ class kfphelpers():
 
             # upload pipeline version
             api_pl = self.client.upload_pipeline_version(pipeline_package_path=self.pl_yaml_path, pipeline_name=self.pl_name, pipeline_version_name=self.pl_name+version)
-            print(f'Uploaded pipeline received id {api_pl.pipeline_id}')
+            print(f'Uploaded pipeline received id {api_pl.id}')
             print('Pipeline already exists. Automatically created a new version.')
             
     '''
@@ -107,7 +107,7 @@ class kfphelpers():
     '''
     Combination of *upload_pipeline()* and *create_run()*
     '''
-    def upload_and_run(self, pipeline_function, experiment_name='default-expirement', run_params = dict ()):
+    def upload_and_run(self, pipeline_function, experiment_name='default', run_params = dict ()):
         self.upload_pipeline(pipeline_function=pipeline_function)
         self.create_run(pipeline_function, experiment_name, run_params)
         
